@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "axios": "^0.21.1",
+    "discord.js": "^12.5.3",
+    "mongoose": "^5.12.11",
+    "ndjson": "^2.0.0",
+    "node-fetch": "^2.6.1",
+    "scramjet": "^4.35.17"
+  },
+  "name": "discord",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
