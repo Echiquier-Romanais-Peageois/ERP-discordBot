@@ -1,9 +1,19 @@
+/**
+ * @author Ollivier chris
+ * @version 1.0.0
+ * Ce ficher permet de verifier que l'input de l'utilisateur est bien une command 
+ * Si oui il execute la command 
+ * Si non il retourne un error
+ */
+//inport de tout les commands
+const profile = require("./commands/profileCommand/profile.js")
 const clear = require("./commands/clear.js")
 const register = require("./commands/register.js")
 const help = require("./commands/help.js")
 const online = require("./commands/online.js")
-const ffe = require("./commands/FFE.js")
-const listcommands = {help, clear, register, online, ffe };
+
+const { author } = require("./Embed/EmbedErrorClear.js")
+const listcommands = {help, clear, register, online, profile };
 
 module.exports = async function (msg) {
   if (msg.channel.id == "847032386062647296" && msg.content.charAt(0) === "!") {

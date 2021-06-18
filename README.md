@@ -1,2 +1,0 @@
-# ERP-discordBot
-ERP - discordBot
