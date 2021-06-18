@@ -1,4 +1,4 @@
-const info = require('./memberInfo.js')
+const info = require('./getMemberInfo.js')
 module.exports = async function (msg, args) {
     const target = msg.mentions.users.first() || msg.author
     const targetId = target.id

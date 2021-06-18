@@ -1,8 +1,14 @@
+/**
+ * @author Ollivier chris
+ * @version 1.0.0
+ * Ce fichier permet la 
+ */
+const config = require('./config.json')
 const mongoose = require('mongoose')
-const mongoPhat = 'mongodb+srv://admin:AUsN7dvQU2eBpq6B@cluster0.mjso8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'//require('./config.json')''
+const mongoPath = config.mongoPath
 
 module.exports = async function () {
-  await mongoose.connect(mongoPhat, {
+  await mongoose.connect(mongoPath, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

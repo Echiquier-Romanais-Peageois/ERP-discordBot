@@ -1,9 +1,9 @@
-//import des lib
 /**
  * @author Ollivier chris
  * @version 1.0.0
  * Ce ficher permet de recupere les info de l'API de la FFE
  */
+//import des lib
  const fetch = require('node-fetch')
  module.exports.getDataFFE = async () => {
      let dataFFE = []

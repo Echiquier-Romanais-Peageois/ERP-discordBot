@@ -8,11 +8,9 @@
 //inport de tout les commands
 const profile = require("./commands/profileCommand/profile.js")
 const clear = require("./commands/clear.js")
-const register = require("./commands/register.js")
+const register = require("./commands/registerCommand/register.js")
 const help = require("./commands/help.js")
 const online = require("./commands/online.js")
-
-const { author } = require("./Embed/EmbedErrorClear.js")
 const listcommands = {help, clear, register, online, profile };
 
 module.exports = async function (msg) {
@@ -32,7 +30,7 @@ module.exports = async function (msg) {
       else {
         commandFalse++;
         if (commandFalse === Object.keys(listcommands).length) {
-          msg.reply(" that is not a command")
+          msg.reply(msg.content," that is not a command")
         }
       }
       i++
