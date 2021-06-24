@@ -4,7 +4,7 @@ import http from "http";
 
 import { connectToDatabase } from "./mongo";
 
-import { help } from "./commands/help";
+import help from "./commands/help";
 import commands from "./commands";
 
 dotenv.config();
@@ -26,7 +26,7 @@ const handleMessage = (message: Discord.Message | Discord.PartialMessage) => {
   // Sending a message to the bot prints out the help message
   const user = message.mentions.users.first();
   if (user?.bot) {
-    help(message as Discord.Message, [], isAdmin);
+    help.handler(message as Discord.Message, [], isAdmin);
     return;
   }
 
@@ -36,7 +36,14 @@ const handleMessage = (message: Discord.Message | Discord.PartialMessage) => {
   const args = message.content.slice(1).trim().split(/ +/g);
   const command = args.shift()?.toLowerCase();
 
-  const handler = commands.find((c) => c.command === command)?.handler;
+  // The help command has to be treated separately to avoid cycling dependencies
+  if (command === help.command) {
+    help.handler(message as Discord.Message, args, isAdmin);
+    return;
+  }
+
+  // Handle all other commands
+  const handler = commands.find((c) => c?.command === command)?.handler;
   if (handler) handler(message as Discord.Message, args, isAdmin);
 };
 

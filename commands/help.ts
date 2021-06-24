@@ -1,15 +1,25 @@
 import Discord from "discord.js";
 
+import t from "../intl";
 import { commands } from "./index";
 
-export const help = (
+const helpCommand = {
+  command: "aide",
+  // @
+  handler: help,
+  help: "Afficher cette aide !",
+  isAdmin: false,
+};
+
+export function help(
   message: Discord.Message,
   args?: string[],
   isAdmin?: boolean
-) => {
-  const availableCommands = commands.filter(
-    (command) => command && (isAdmin || command.isAdmin)
-  );
+): void {
+  const availableCommands = [
+    helpCommand,
+    ...commands.filter((command) => command && (isAdmin || command.isAdmin)),
+  ];
 
   message.channel.send(
     new Discord.MessageEmbed()
@@ -22,15 +32,13 @@ export const help = (
       .addFields(
         availableCommands.map((command) => ({
           name: command.command,
-          value: `${command.help}${command.isAdmin ? " (admin)" : ""}`,
-        }))
+          value: `${t({ id: command.help })}${
+            command.isAdmin ? " (admin)" : ""
+          }`,
+        }))!
       )
       .setTimestamp()
   );
-};
+}
 
-export default {
-  command: "aide",
-  handler: help,
-  help: "Afficher cette aide !",
-};
+export default helpCommand;

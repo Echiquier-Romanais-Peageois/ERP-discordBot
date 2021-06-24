@@ -1,6 +1,5 @@
 import Discord from "discord.js";
 
-import help from "./help";
 import lichess from "./lichess";
 import iam from "./iam";
 import register from "./register";
@@ -21,7 +20,6 @@ export type Command = {
 };
 
 export const commands: Command[] = [
-  help,
   lichess,
   iam,
   register,
