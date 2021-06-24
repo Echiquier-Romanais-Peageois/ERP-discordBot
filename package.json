@@ -2,17 +2,26 @@
   "dependencies": {
     "axios": "^0.21.1",
     "discord.js": "^12.5.3",
+    "dotenv": "^10.0.0",
+    "lodash": "^4.17.21",
     "mongoose": "^5.12.11",
     "ndjson": "^2.0.0",
-    "node-fetch": "^2.6.1",
-    "scramjet": "^4.35.17"
+    "node-fetch": "^2.6.1"
   },
   "name": "discord",
   "version": "1.0.0",
-  "main": "index.js",
-  "devDependencies": {},
+  "main": "dist/index.js",
+  "devDependencies": {
+    "@types/lodash": "^4.14.170",
+    "@types/node-fetch": "^2.5.10",
+    "nodemon": "^2.0.7",
+    "prettier": "2.3.1",
+    "typescript": "^3.9.10"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "tsc && node dist/index.js || exit 1",
+    "dev": "nodemon -e ts  --exec \"npm run compile\"",
+    "dev:mongo": "docker run --name mongo-erp -v db:/data/db -d mongo -e MONGO_INITDB_DATABASE=erp -e MONGO_INITDB_ROOT_USERNAME=erp -e MONGO_INITDB_ROOT_PASSWORD=secret"
   },
   "author": "",
   "license": "ISC",
