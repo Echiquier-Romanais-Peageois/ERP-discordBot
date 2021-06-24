@@ -32,6 +32,10 @@ const fr = {
   "commands.register.needAdmin":
     "Cette commands et pour les admins, utilise plutot « !jesuis lichess <pseudo> » ou « !jesuis FFE <numéro de license> »",
 
+  "commands.remove.help": "Supprimer toutes les informations d'un compte",
+  "commands.remove.hint": "Faites « !remove <pseudo> »",
+  "commands.reset.notFound": "Utilisateur pas connu.",
+
   "commands.reset.help": "Resetter la base",
   "commands.reset.done": "Fait.",
 

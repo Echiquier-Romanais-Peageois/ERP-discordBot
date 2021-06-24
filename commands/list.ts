@@ -6,6 +6,7 @@ import { User } from "../mongo";
 const list = async (message: Discord.Message) => {
   try {
     const storedUsers = await User.find().exec();
+    if (storedUsers.length === 0) return;
 
     const discordPseudos = storedUsers.map((user) => user.pseudoDiscord ?? "-");
     const lichessPseudos = storedUsers.map((user) => user.pseudoLichess ?? "-");

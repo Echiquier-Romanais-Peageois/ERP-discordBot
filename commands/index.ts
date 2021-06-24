@@ -7,6 +7,7 @@ import search from "./search";
 import reset from "./reset";
 import list from "./list";
 import play from "./play";
+import remove from "./remove";
 
 export type Command = {
   command: string;
@@ -20,12 +21,13 @@ export type Command = {
 };
 
 export const commands: Command[] = [
-  lichess,
   iam,
-  register,
   list,
   search,
+  lichess,
   play,
+  register,
+  remove,
   reset,
 ];
 
