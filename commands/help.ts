@@ -2,9 +2,13 @@ import Discord from "discord.js";
 
 import { commands } from "./index";
 
-const help = (message: Discord.Message, args?: string[], isAdmin?: boolean) => {
+export const help = (
+  message: Discord.Message,
+  args?: string[],
+  isAdmin?: boolean
+) => {
   const availableCommands = commands.filter(
-    (command) => isAdmin || command.isAdmin
+    (command) => command && (isAdmin || command.isAdmin)
   );
 
   message.channel.send(
