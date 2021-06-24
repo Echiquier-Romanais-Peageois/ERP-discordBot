@@ -1,5 +1,6 @@
 import Discord from 'discord.js';
 import dotenv from 'dotenv';
+import http from 'http';
 
 import { connectToDatabase } from './mongo';
 
@@ -35,3 +36,8 @@ connectToDatabase(() => {
   client.login(process.env.BOT_TOKEN);
 })
 
+// To make Scalingo happy that the app has booted, we need to create a web server
+http.createServer(function (req, res) {
+  res.write('ERP Bot Running!'); 
+  res.end(); 
+}).listen(process.env.PORT); 

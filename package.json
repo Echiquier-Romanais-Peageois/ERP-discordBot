@@ -3,6 +3,7 @@
     "axios": "^0.21.1",
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
+    "http": "0.0.1-security",
     "lodash": "^4.17.21",
     "mongoose": "^5.12.11",
     "ndjson": "^2.0.0",
