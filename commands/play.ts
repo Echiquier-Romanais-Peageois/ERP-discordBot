@@ -1,27 +1,31 @@
 import Discord from "discord.js";
 
+import t from "../intl";
 import { User } from "../mongo";
 
 const play = async (message: Discord.Message) => {
   const user = message.mentions.users.first();
   if (!user) {
-    message.reply(`Faites « !partie @<discord pseudo> »`);
+    message.reply(t({ id: "commands.play.hint" }));
     return;
   }
 
   const storedUser = await User.findOne({ idDiscord: user.id });
   if (!storedUser?.pseudoLichess) {
-    message.reply("Je ne connais pas le pseudo lichess de cette personne");
+    message.reply(t({ id: "commands.play.unknown" }));
     return;
   }
 
   message.reply(
-    `Visitez https://lichess.org/?user=${storedUser?.pseudoLichess}#friend`
+    t(
+      { id: "commands.play.visit" },
+      { link: `https://lichess.org/?user=${storedUser?.pseudoLichess}#friend` }
+    )
   );
 };
 
 export default {
   command: "partie",
   handler: play,
-  help: "Jouer contre un autre membre !",
+  help: "commands.play.help",
 };

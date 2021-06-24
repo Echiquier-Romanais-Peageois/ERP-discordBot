@@ -1,5 +1,6 @@
 import Discord from "discord.js";
 
+import t from "../intl";
 import { fetchTeam } from "../api/lichess";
 import { User } from "../mongo";
 
@@ -30,22 +31,32 @@ const lichess = async (message: Discord.Message) => {
     message.channel.send(
       new Discord.MessageEmbed()
         .setColor("#FFFFFF")
-        .setTitle("L'équipe en ligne")
+        .setTitle(t({ id: "commands.lichess.title" }))
         .setAuthor(
           "ERP Bot",
           "https://images.prismic.io/lichess/5cfd2630-2a8f-4fa9-8f78-04c2d9f0e5fe_lichess-box-1024.png?auto=compress,format"
         )
         .addFields(
-          { name: "Actif", value: status, inline: true },
-          { name: "User", value: usernames, inline: true },
-          { name: "Pseudo Discord", value: discordPseudos, inline: true }
+          {
+            name: t({ id: "commands.lichess.active" }),
+            value: status,
+            inline: true,
+          },
+          {
+            name: t({ id: "commands.lichess.user" }),
+            value: usernames,
+            inline: true,
+          },
+          {
+            name: t({ id: "commands.lichess.discord" }),
+            value: discordPseudos,
+            inline: true,
+          }
         )
         .setTimestamp()
     );
   } catch (e) {
-    message.reply(
-      "Désole, je ne peux pas contacter le serveur lichess en ce moment !"
-    );
+    message.reply(t({ id: "errors.lichess" }));
     return;
   }
 };
@@ -53,5 +64,5 @@ const lichess = async (message: Discord.Message) => {
 export default {
   command: "lichess",
   handler: lichess,
-  help: "Lister les members notre équipe lichess",
+  help: "commands.lichess.help",
 };

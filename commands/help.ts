@@ -5,9 +5,8 @@ import { commands } from "./index";
 
 const helpCommand = {
   command: "aide",
-  // @
   handler: help,
-  help: "Afficher cette aide !",
+  help: "commands.help.help",
   isAdmin: false,
 };
 
@@ -24,7 +23,7 @@ export function help(
   message.channel.send(
     new Discord.MessageEmbed()
       .setColor("#FFFFFF")
-      .setTitle("Ce que vous pouvez faire...")
+      .setTitle(t({ id: "commands.help.title" }))
       .setAuthor(
         "ERP Bot",
         "https://images.prismic.io/lichess/5cfd2630-2a8f-4fa9-8f78-04c2d9f0e5fe_lichess-box-1024.png?auto=compress,format"

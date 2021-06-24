@@ -1,11 +1,12 @@
 import Discord from "discord.js";
 
+import t from "../intl";
 import { User } from "../mongo";
 import normalizeForSearch from "../utils/normalize-for-search";
 
 const search = async (message: Discord.Message, args: string[]) => {
   if (args.length !== 1) {
-    message.reply(`Faites « !cqui <nom / pseudo> »`);
+    message.reply(t({ id: "commands.search.hint" }));
     return;
   }
 
@@ -39,7 +40,7 @@ const search = async (message: Discord.Message, args: string[]) => {
     });
 
     if (results.length === 0) {
-      message.reply("Je ne sais pas !");
+      message.reply(t({ id: "commands.search.unknown" }));
     } else {
       const discordPseudos = results.map((user) => user.pseudoDiscord ?? "-");
       const lichessPseudos = results.map((user) => user.pseudoLichess ?? "-");
@@ -50,22 +51,34 @@ const search = async (message: Discord.Message, args: string[]) => {
       message.channel.send(
         new Discord.MessageEmbed()
           .setColor("#FFFFFF")
-          .setTitle("Voici ce que je trouve :")
+          .setTitle(t({ id: "commands.search.title" }))
           .setAuthor(
             "ERP Bot",
             "https://images.prismic.io/lichess/5cfd2630-2a8f-4fa9-8f78-04c2d9f0e5fe_lichess-box-1024.png?auto=compress,format"
           )
           .addFields(
-            { name: "Discord", value: discordPseudos, inline: true },
-            { name: "Lichess", value: lichessPseudos, inline: true },
-            { name: "Nom", value: names, inline: true }
+            {
+              name: t({ id: "commands.search.discord" }),
+              value: discordPseudos,
+              inline: true,
+            },
+            {
+              name: t({ id: "commands.search.lichess" }),
+              value: lichessPseudos,
+              inline: true,
+            },
+            {
+              name: t({ id: "commands.search.name" }),
+              value: names,
+              inline: true,
+            }
           )
           .setTimestamp()
       );
     }
   } catch (e) {
     console.log(e);
-    message.reply("Désole, je ne peux pas contacter notre base en ce moment !");
+    message.reply(t({ id: "errors.mongo" }));
     return;
   }
 };
@@ -73,5 +86,5 @@ const search = async (message: Discord.Message, args: string[]) => {
 export default {
   command: "cqui",
   handler: search,
-  help: "Rechercher un utilistateur par nom/pseudo",
+  help: "commands.search.help",
 };

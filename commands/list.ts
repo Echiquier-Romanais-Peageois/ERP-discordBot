@@ -1,5 +1,6 @@
 import Discord from "discord.js";
 
+import t from "../intl";
 import { User } from "../mongo";
 
 const list = async (message: Discord.Message) => {
@@ -15,21 +16,29 @@ const list = async (message: Discord.Message) => {
     message.channel.send(
       new Discord.MessageEmbed()
         .setColor("#FFFFFF")
-        .setTitle("Voici ceux qui se sont déclaré(é)s :")
+        .setTitle(t({ id: "commands.list.title" }))
         .setAuthor(
           "ERP Bot",
           "https://images.prismic.io/lichess/5cfd2630-2a8f-4fa9-8f78-04c2d9f0e5fe_lichess-box-1024.png?auto=compress,format"
         )
         .addFields(
-          { name: "Pseudo Discord", value: discordPseudos, inline: true },
-          { name: "Pseudo Lichess", value: lichessPseudos, inline: true },
-          { name: "Nom", value: names, inline: true }
+          {
+            name: t({ id: "commands.list.discord" }),
+            value: discordPseudos,
+            inline: true,
+          },
+          {
+            name: t({ id: "commands.list.lichess" }),
+            value: lichessPseudos,
+            inline: true,
+          },
+          { name: t({ id: "commands.list.name" }), value: names, inline: true }
         )
         .setTimestamp()
     );
   } catch (e) {
     console.log(e);
-    message.reply("Désole, je ne peux pas contacter notre base en ce moment !");
+    message.reply(t({ id: "errors.mongo" }));
     return;
   }
 };
@@ -37,5 +46,5 @@ const list = async (message: Discord.Message) => {
 export default {
   command: "liste",
   handler: list,
-  help: "Lister les membres Discord avec leurs nom/pseudo",
+  help: "commands.list.help",
 };

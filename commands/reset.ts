@@ -1,5 +1,6 @@
 import Discord from "discord.js";
 
+import t from "../intl";
 import { User } from "../mongo";
 
 const reset = async (
@@ -10,12 +11,12 @@ const reset = async (
   if (!isAdmin) return;
   await User.remove({});
 
-  message.reply("Fait.");
+  message.reply(t({ id: "commands.reset.done" }));
 };
 
 export default {
   command: "reset",
   handler: reset,
-  help: "Resetter la base",
+  help: "commands.reset.help",
   isAdmin: true,
 };

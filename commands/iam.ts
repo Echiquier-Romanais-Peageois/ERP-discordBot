@@ -1,14 +1,13 @@
 import Discord from "discord.js";
 
+import t from "../intl";
 import configLichess from "../utils/config-lichess";
 import configFFE from "../utils/config-ffe";
 
-const jesuis = async (message: Discord.Message, args: string[]) => {
+const iam = async (message: Discord.Message, args: string[]) => {
   const forConfig = args[0]?.toLowerCase();
   if (args.length !== 2 || !["lichess", "ffe"].includes(forConfig)) {
-    message.reply(
-      `Faites « !jesuis lichess <pseudo> » ou « !jesuis FFE <numéro de license> »`
-    );
+    message.reply(t({ id: "commands.iam.hint" }));
     return;
   }
 
@@ -19,6 +18,6 @@ const jesuis = async (message: Discord.Message, args: string[]) => {
 
 export default {
   command: "jesuis",
-  handler: jesuis,
-  help: "Rattacher votre pseudo Discord à vos comptes lichess et FFE",
+  handler: iam,
+  help: "commands.iam.help",
 };
