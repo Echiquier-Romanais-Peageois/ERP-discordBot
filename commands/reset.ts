@@ -1,9 +1,12 @@
-import Discord from 'discord.js';
+import Discord from "discord.js";
 
-import { fetchTeam } from '../api/lichess';
-import { User } from '../mongo';
+import { User } from "../mongo";
 
-const reset = async (message: Discord.Message, args: string[], isAdmin?: boolean) => {
+const reset = async (
+  message: Discord.Message,
+  args: string[],
+  isAdmin?: boolean
+) => {
   if (!isAdmin) return;
   await User.remove({});
 
@@ -11,9 +14,8 @@ const reset = async (message: Discord.Message, args: string[], isAdmin?: boolean
 };
 
 export default {
-  command: 'reset',
+  command: "reset",
   handler: reset,
   help: "Resetter la base",
   isAdmin: true,
 };
-

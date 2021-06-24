@@ -61,9 +61,7 @@ function filter(c: string) {
   }
 }
 
-export default function normalizeForSearch(s?: string) {
-  if (!s) return;
-  
+export default function normalizeForSearch(s: string) {
   let normalized = "";
   let i;
   let l;

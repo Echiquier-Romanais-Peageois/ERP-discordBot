@@ -1,12 +1,8 @@
-import Discord from 'discord.js';
+import Discord from "discord.js";
 
-import { fetchTeam } from '../api/lichess';
-import { User } from '../mongo';
+import { User } from "../mongo";
 
-import configLichess from '../utils/config-lichess';
-import configFFE from '../utils/config-ffe';
-
-const play = async (message: Discord.Message, args: string[], isAdmin?: boolean) => {
+const play = async (message: Discord.Message) => {
   const user = message.mentions.users.first();
   if (!user) {
     message.reply(`Faites « !partie @<discord pseudo> »`);
@@ -19,12 +15,13 @@ const play = async (message: Discord.Message, args: string[], isAdmin?: boolean)
     return;
   }
 
-  message.reply(`Visitez https://lichess.org/?user=${storedUser?.pseudoLichess}#friend`);
+  message.reply(
+    `Visitez https://lichess.org/?user=${storedUser?.pseudoLichess}#friend`
+  );
 };
 
 export default {
-  command: 'partie',
+  command: "partie",
   handler: play,
   help: "Jouer contre un autre membre !",
 };
-

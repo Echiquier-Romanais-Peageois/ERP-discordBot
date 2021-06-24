@@ -1,4 +1,4 @@
-import Discord from 'discord.js';
+import Discord from "discord.js";
 
 import help from "./help";
 import lichess from "./lichess";
@@ -10,11 +10,15 @@ import list from "./list";
 import play from "./play";
 
 export type Command = {
-  command: string,
-  handler: (message: Discord.Message, args: string[], isAdmin?: boolean) => any,
+  command: string;
+  handler: (
+    message: Discord.Message,
+    args: string[],
+    isAdmin?: boolean
+  ) => void;
   help: string;
   isAdmin?: boolean;
-}
+};
 
 export const commands: Command[] = [
   help,
