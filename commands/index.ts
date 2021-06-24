@@ -7,6 +7,7 @@ import register from "./register";
 import search from "./search";
 import reset from "./reset";
 import list from "./list";
+import play from "./play";
 
 export type Command = {
   command: string,
@@ -22,6 +23,7 @@ export const commands: Command[] = [
   register,
   list,
   search,
+  play,
   reset,
 ];
 

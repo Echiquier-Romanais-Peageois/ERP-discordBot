@@ -13,6 +13,7 @@ const reset = async (message: Discord.Message, args: string[], isAdmin?: boolean
 export default {
   command: 'reset',
   handler: reset,
-  help: "Resetter la base"
+  help: "Resetter la base",
+  isAdmin: true,
 };
 

@@ -17,11 +17,11 @@ const register = async (message: Discord.Message, args: string[], isAdmin?: bool
 
     if (forConfig === 'lichess') {
       configLichess(message, args[2], user, true);
-    } if (forConfig === 'ffe') {
+    } else if (forConfig === 'ffe') {
       configFFE(message, args[2], user, true);
-    } else {
-      message.reply("Cette commande et pour les admins, utilise plutot « !jesuis lichess <pseudo> » ou « !jesuis FFE <numéro de license> »");
     }
+  } else {  
+    message.reply("Cette commande et pour les admins, utilise plutot « !jesuis lichess <pseudo> » ou « !jesuis FFE <numéro de license> »");
   }
 };
 
