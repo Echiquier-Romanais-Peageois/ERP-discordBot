@@ -1,17 +1,16 @@
 import Discord from "discord.js";
 
 import t from "../intl";
-import { User } from "../mongo";
+import findUser from "../utils/find-user";
 
-const play = async (message: Discord.Message) => {
-  const user = message.mentions.users.first();
-  if (!user) {
+const play = async (message: Discord.Message, args: string[]) => {
+  if (args.length !== 1) {
     message.reply(t({ id: "commands.play.hint" }));
     return;
   }
 
-  const storedUser = await User.findOne({ idDiscord: user.id });
-  if (!storedUser?.pseudoLichess) {
+  const user = await findUser(message, args[0]);
+  if (!user?.pseudoLichess) {
     message.reply(t({ id: "commands.play.unknown" }));
     return;
   }
@@ -19,7 +18,7 @@ const play = async (message: Discord.Message) => {
   message.reply(
     t(
       { id: "commands.play.visit" },
-      { link: `https://lichess.org/?user=${storedUser?.pseudoLichess}#friend` }
+      { link: `https://lichess.org/?user=${user?.pseudoLichess}#friend` }
     )
   );
 };

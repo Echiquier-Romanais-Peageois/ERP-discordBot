@@ -31,7 +31,7 @@ const search = async (message: Discord.Message, args: string[]) => {
         searches.find(
           (testString) =>
             testString &&
-            normalizeForSearch(user.pseudoDiscord).indexOf(searchTerm) >= 0
+            normalizeForSearch(testString).indexOf(searchTerm) >= 0
         )
       )
         return true;
