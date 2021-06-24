@@ -28,7 +28,7 @@ const register = async (message: Discord.Message, args: string[], isAdmin?: bool
 export default {
   command: 'register',
   handler: register,
-  help: "Rattacher un pseudo Discord à vos comptes lichess et FFE",
+  help: "Rattacher un pseudo Discord à ses comptes lichess et FFE",
   isAdmin: true,
 };
 
