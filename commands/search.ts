@@ -12,29 +12,31 @@ const search = async (message: Discord.Message, args: string[]) => {
 
   try {
     const storedUsers = await User.find().exec();
+
+    // For text searches
     const searchTerm = normalizeForSearch(args[0]);
 
+    // For mention searches
+    const userTerm = message.mentions.users.first();
+
     const results = storedUsers.filter((user) => {
+      const searches = [
+        user.pseudoDiscord,
+        user.pseudoLichess,
+        user.firstNameFFE,
+        user.lastNameFFE,
+      ];
+
       if (
-        user.pseudoDiscord &&
-        normalizeForSearch(user.pseudoDiscord).indexOf(searchTerm) >= 0
+        searches.find(
+          (testString) =>
+            testString &&
+            normalizeForSearch(user.pseudoDiscord).indexOf(searchTerm) >= 0
+        )
       )
         return true;
-      if (
-        user.pseudoLichess &&
-        normalizeForSearch(user.pseudoLichess)?.indexOf(searchTerm) >= 0
-      )
-        return true;
-      if (
-        user.firstNameFFE &&
-        normalizeForSearch(user.firstNameFFE).indexOf(searchTerm) >= 0
-      )
-        return true;
-      if (
-        user.lastNameFFE &&
-        normalizeForSearch(user.lastNameFFE).indexOf(searchTerm) >= 0
-      )
-        return true;
+
+      if (userTerm?.username === user.pseudoDiscord) return true;
 
       return false;
     });
