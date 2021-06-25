@@ -11,6 +11,7 @@ export interface IUser extends Document {
   lastNameFFE?: string;
 
   search?: string;
+  lastSignupRequest?: Date;
 }
 
 const userSchema: Schema<IUser> = new Schema({
@@ -22,6 +23,7 @@ const userSchema: Schema<IUser> = new Schema({
   lastNameFFE: { type: String, required: false },
 
   search: { type: String, required: false },
+  lastSignupRequest: { type: Date, required: false },
 });
 
 // We use a pre-save hook to store a searchable form of the data

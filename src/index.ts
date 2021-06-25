@@ -1,10 +1,13 @@
 import Discord from "discord.js";
 import dotenv from "dotenv";
 import http from "http";
+import { subDays, isBefore } from "date-fns";
 
+import t from "bot/intl";
 import { connectToDatabase } from "bot/db/mongo";
+import { User } from "bot/db/mongo";
 
-import help from "bot/commands/help";
+import help, { generateHelpMessage } from "bot/commands/help";
 import commands from "bot/commands";
 
 dotenv.config();
@@ -16,12 +19,13 @@ client.on("ready", async () => {
   console.log("✅ Successfully logged into client.");
 });
 
+const isMemberAdmin = (member?: Discord.GuildMember) =>
+  member?.roles.cache.some((role) => role.name === "Administrateur");
+
 const handleMessage = (message: Discord.Message | Discord.PartialMessage) => {
   if (!message.content) return;
 
-  const isAdmin = message.member?.roles.cache.some(
-    (role) => role.name === "Administrateur"
-  );
+  const isAdmin = isMemberAdmin(message.member ?? undefined);
 
   // Sending a message to the bot prints out the help message
   const user = message.mentions.users.first();
@@ -47,10 +51,60 @@ const handleMessage = (message: Discord.Message | Discord.PartialMessage) => {
   if (handler) handler(message as Discord.Message, args, isAdmin);
 };
 
+const handlePresence = async (
+  _prev: Discord.Presence | undefined,
+  presence: Discord.Presence
+) => {
+  if (!presence.user || presence.user?.bot) return;
+  if (presence.status === "online") {
+    const isAdmin = isMemberAdmin(presence.member ?? undefined);
+
+    const dbUser = await User.findOne({
+      idDiscord: presence.userID,
+    });
+
+    const now = new Date();
+    const dontRemindBefore = subDays(now, 14);
+
+    // A user is now online, check if they've registered either their lichess or FFE account
+    if (!dbUser || (!dbUser.pseudoLichess && !dbUser.licenceFFE)) {
+      if (!dbUser) {
+        // Send a welcome message to new users
+        presence.user.send(
+          t({ id: "reminders.signup" }, { user: presence.user.username })
+        );
+
+        presence.user.send(generateHelpMessage(isAdmin));
+
+        // Create an account for this user, and store the time that we sent this message
+        User.create({
+          idDiscord: presence.user.id,
+          pseudoDiscord: presence.user.username,
+          lastSignupRequest: new Date(),
+        });
+      } else if (
+        !dbUser.lastSignupRequest ||
+        isBefore(new Date(dbUser.lastSignupRequest), dontRemindBefore)
+      ) {
+        // After a while we remind users to sign up
+        presence.user.send(
+          t({ id: "reminders.signupRecall" }, { user: presence.user.username })
+        );
+
+        presence.user.send(generateHelpMessage(isAdmin));
+        dbUser.lastSignupRequest = new Date();
+        dbUser.save();
+      }
+    }
+  }
+};
+
 client.on("message", handleMessage);
 client.on("messageUpdate", (oldMessage, newMessage) =>
   handleMessage(newMessage)
 );
+
+client.on("presenceUpdate", handlePresence);
 
 // Connect to the database, then log into Discord
 connectToDatabase(() => {
