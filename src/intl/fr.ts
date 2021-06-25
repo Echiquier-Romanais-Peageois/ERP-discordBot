@@ -1,8 +1,8 @@
 const fr = {
   "reminders.signup":
-    "Bonjour {user} !  Pour faciliter l'utilisation de ce groupe je me demande à chaque utilisateur de me fournir leur pseudo lichess et leur licence FFE.  Vous pouvez me les fournir en utilisant la commande « !jesuis ».\nEnsuite je peux vous aidez avec cette selectionne de commande bien utile :",
+    "Bonjour {user} !  Pour faciliter l'utilisation de ce groupe je demande à chaque utilisateur de me fournir leur pseudo lichess et leur licence FFE.  Vous pouvez me les fournir en utilisant la commande « !jesuis ».\nEnsuite je peux vous aidez avec cette sélectionne de commande bien utile :",
   "reminders.signupRecall":
-    "Bonjour {user} !  N'oubliez pas de me fournir leur pseudo lichess et leur licence FFE !  Vous pouvez me les fournir en utilisant la commande « !jesuis ».",
+    "Bonjour {user} !  N'oubliez pas de me fournir votre pseudo lichess et votre licence FFE !  Vous pouvez me les fournir en utilisant la commande « !jesuis ».",
 
   "commands.help.help": "Afficher cette aide !",
   "commands.help.title": "Ce que vous pouvez faire...",
