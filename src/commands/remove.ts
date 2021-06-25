@@ -1,8 +1,8 @@
 import Discord from "discord.js";
 
-import t from "../intl";
-import { User } from "../mongo";
-import findUser from "../utils/find-user";
+import t from "bot/intl";
+import { User } from "bot/db/mongo";
+import findUser from "bot/utils/find-user";
 
 const remove = async (
   message: Discord.Message,

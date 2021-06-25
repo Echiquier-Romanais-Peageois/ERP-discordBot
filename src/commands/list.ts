@@ -1,7 +1,7 @@
 import Discord from "discord.js";
 
-import t from "../intl";
-import { User } from "../mongo";
+import t from "bot/intl";
+import { User } from "bot/db/mongo";
 
 const list = async (message: Discord.Message) => {
   try {

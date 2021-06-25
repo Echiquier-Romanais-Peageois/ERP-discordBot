@@ -1,7 +1,7 @@
 import Discord from "discord.js";
 
-import { User } from "../mongo";
-import normalizeForSearch from "../utils/normalize-for-search";
+import { User } from "bot/db/mongo";
+import normalizeForSearch from "bot/utils/normalize-for-search";
 
 const findUser = async (message: Discord.Message, text: string) => {
   const storedUsers = await User.find().exec();

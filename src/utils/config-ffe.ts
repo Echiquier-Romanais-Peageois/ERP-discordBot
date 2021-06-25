@@ -1,24 +1,21 @@
 import Discord from "discord.js";
 
-import { fetchTeam } from "../api/lichess";
-import { User } from "../mongo";
+import { fetchFFEData } from "bot/api/ffe";
+import { User } from "bot/db/mongo";
 
-const configLichess = async (
+const configFFE = async (
   message: Discord.Message,
-  pseudoLichess: string,
+  licence: string,
   forUser: Discord.User,
   isAdmin: boolean
 ) => {
   try {
-    const lcPseudo = pseudoLichess.toLowerCase();
-    const lichessUsers = await fetchTeam();
-    const lichessUser = lichessUsers.find(
-      (u) => u.username.toLowerCase() === lcPseudo
-    );
-    if (!lichessUser) {
-      message.reply(
-        "Désole, ce pseudo ne fait pas encore parti de notre équipe..."
-      );
+    const lcLicence = licence.toLowerCase();
+    const members = await fetchFFEData();
+
+    const member = members.find((u) => u.id.toLowerCase() === lcLicence);
+    if (!member) {
+      message.reply("Désole, nous ne trouvons pas ce numéro de licence...");
       return;
     }
 
@@ -28,18 +25,18 @@ const configLichess = async (
     const otherUser = storedUsers.find(
       (user) =>
         user.idDiscord !== idDiscord &&
-        user.pseudoLichess?.toLowerCase() === lcPseudo
+        user.licenceFFE?.toLowerCase() === lcLicence
     );
 
     if (otherUser) {
       if (!isAdmin) {
         message.reply(
-          `Désole, ce pseudo est déjà assigné à ${otherUser.pseudoDiscord}`
+          `Désole, ce numéro est déjà assigné à ${otherUser.pseudoDiscord}`
         );
         return;
       }
 
-      otherUser.pseudoLichess = undefined;
+      otherUser.licenceFFE = undefined;
       await otherUser.save();
     }
 
@@ -48,7 +45,9 @@ const configLichess = async (
         await User.create({
           idDiscord: forUser.id,
           pseudoDiscord: forUser.username,
-          pseudoLichess: lichessUser.username,
+          licenceFFE: member.id,
+          firstNameFFE: member.firstName,
+          lastNameFFE: member.lastName,
         });
       } else {
         await User.updateOne(
@@ -58,7 +57,9 @@ const configLichess = async (
           {
             $set: {
               pseudoDiscord: forUser.username,
-              pseudoLichess: lichessUser.username,
+              licenceFFE: member.id,
+              firstNameFFE: member.firstName,
+              lastNameFFE: member.lastName,
             },
           }
         );
@@ -75,10 +76,10 @@ const configLichess = async (
   } catch (e) {
     console.log(e);
     message.reply(
-      "Désole, je ne peux pas contacter le serveur lichess en ce moment !"
+      "Désole, je ne peux pas contacter le serveur FFE en ce moment !"
     );
     return;
   }
 };
 
-export default configLichess;
+export default configFFE;

@@ -1,7 +1,7 @@
 import Discord from "discord.js";
 
-import t from "../intl";
-import findUser from "../utils/find-user";
+import t from "bot/intl";
+import findUser from "bot/utils/find-user";
 
 const play = async (message: Discord.Message, args: string[]) => {
   if (args.length !== 1) {

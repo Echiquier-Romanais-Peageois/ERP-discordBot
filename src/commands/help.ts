@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 
-import t from "../intl";
+import t from "bot/intl";
 import { commands } from "./index";
 
 const helpCommand = {

@@ -1,8 +1,8 @@
 import Discord from "discord.js";
 
-import t from "../intl";
-import { fetchTeam } from "../api/lichess";
-import { User } from "../mongo";
+import t from "bot/intl";
+import { fetchTeam } from "bot/api/lichess";
+import { User } from "bot/db/mongo";
 
 const attempt = <T>(promise: Promise<T>) =>
   promise

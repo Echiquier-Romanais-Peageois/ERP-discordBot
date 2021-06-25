@@ -1,8 +1,8 @@
 import Discord from "discord.js";
 
-import t from "../intl";
-import configLichess from "../utils/config-lichess";
-import configFFE from "../utils/config-ffe";
+import t from "bot/intl";
+import configLichess from "bot/utils/config-lichess";
+import configFFE from "bot/utils/config-ffe";
 
 const register = async (
   message: Discord.Message,

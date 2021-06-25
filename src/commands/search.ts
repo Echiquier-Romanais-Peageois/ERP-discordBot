@@ -1,8 +1,8 @@
 import Discord from "discord.js";
 
-import t from "../intl";
-import { User } from "../mongo";
-import normalizeForSearch from "../utils/normalize-for-search";
+import t from "bot/intl";
+import { User } from "bot/db/mongo";
+import normalizeForSearch from "bot/utils/normalize-for-search";
 
 const search = async (message: Discord.Message, args: string[]) => {
   if (args.length !== 1) {

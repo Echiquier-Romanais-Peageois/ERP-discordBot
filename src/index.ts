@@ -2,10 +2,10 @@ import Discord from "discord.js";
 import dotenv from "dotenv";
 import http from "http";
 
-import { connectToDatabase } from "./mongo";
+import { connectToDatabase } from "bot/db/mongo";
 
-import help from "./commands/help";
-import commands from "./commands";
+import help from "bot/commands/help";
+import commands from "bot/commands";
 
 dotenv.config();
 
