@@ -27,7 +27,7 @@
     "typescript": "^3.9.10"
   },
   "scripts": {
-    "start": "ts-node index.ts",
+    "start": "ts-node -r tsconfig-paths/register src/index.ts",
     "dev": "nodemon -x ts-node -r tsconfig-paths/register src/index.ts",
     "dev:mongo": "docker run --name mongo-erp -v db:/data/db -d mongo -e MONGO_INITDB_DATABASE=erp -e MONGO_INITDB_ROOT_USERNAME=erp -e MONGO_INITDB_ROOT_PASSWORD=secret"
   },
