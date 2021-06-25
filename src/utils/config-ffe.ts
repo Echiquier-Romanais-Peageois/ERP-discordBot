@@ -1,5 +1,6 @@
 import Discord from "discord.js";
 
+import t from "bot/intl";
 import { fetchFFEData } from "bot/api/ffe";
 import { User } from "bot/db/mongo";
 
@@ -15,7 +16,7 @@ const configFFE = async (
 
     const member = members.find((u) => u.id.toLowerCase() === lcLicence);
     if (!member) {
-      message.reply("Désole, nous ne trouvons pas ce numéro de licence...");
+      message.reply(t({ id: "config.ffe.unknown" }));
       return;
     }
 
@@ -31,7 +32,10 @@ const configFFE = async (
     if (otherUser) {
       if (!isAdmin) {
         message.reply(
-          `Désole, ce numéro est déjà assigné à ${otherUser.pseudoDiscord}`
+          t(
+            { id: "config.ffe.alreadyAssigned" },
+            { user: otherUser.pseudoDiscord }
+          )
         );
         return;
       }
@@ -56,19 +60,15 @@ const configFFE = async (
         dbUser.lastNameFFE = member.lastName;
         await dbUser.save();
       }
-      message.reply("Merci, c'est noté !");
+      message.reply(t({ id: "config.thanks" }));
     } catch (e) {
       console.log(e);
-      message.reply(
-        "Désole, je ne peux pas contacter notre base en ce moment !"
-      );
+      message.reply(t({ id: "errors.mongo" }));
       return;
     }
   } catch (e) {
     console.log(e);
-    message.reply(
-      "Désole, je ne peux pas contacter le serveur FFE en ce moment !"
-    );
+    message.reply(t({ id: "errors.ffe" }));
     return;
   }
 };

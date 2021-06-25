@@ -1,5 +1,6 @@
 import Discord from "discord.js";
 
+import t from "bot/intl";
 import { fetchTeam } from "bot/api/lichess";
 import { User } from "bot/db/mongo";
 
@@ -15,10 +16,9 @@ const configLichess = async (
     const lichessUser = lichessUsers.find(
       (u) => u.username.toLowerCase() === lcPseudo
     );
+
     if (!lichessUser) {
-      message.reply(
-        "Désole, ce pseudo ne fait pas encore parti de notre équipe..."
-      );
+      message.reply(t({ id: "config.lichess.unknown" }));
       return;
     }
 
@@ -34,7 +34,10 @@ const configLichess = async (
     if (otherUser) {
       if (!isAdmin) {
         message.reply(
-          `Désole, ce pseudo est déjà assigné à ${otherUser.pseudoDiscord}`
+          t(
+            { id: "config.lichess.alreadyAssigned" },
+            { user: otherUser.pseudoDiscord }
+          )
         );
         return;
       }
@@ -56,19 +59,15 @@ const configLichess = async (
         await dbUser.save();
       }
 
-      message.reply("Merci, c'est noté !");
+      message.reply(t({ id: "config.thanks" }));
     } catch (e) {
       console.log(e);
-      message.reply(
-        "Désole, je ne peux pas contacter notre base en ce moment !"
-      );
+      message.reply(t({ id: "errors.mongo" }));
       return;
     }
   } catch (e) {
     console.log(e);
-    message.reply(
-      "Désole, je ne peux pas contacter le serveur lichess en ce moment !"
-    );
+    message.reply(t({ id: "errors.lichess" }));
     return;
   }
 };

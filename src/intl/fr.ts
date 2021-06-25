@@ -47,9 +47,21 @@ const fr = {
   "commands.search.lichess": "Pseudo Lichess",
   "commands.search.name": "Nom",
 
+  "config.ffe.unknown": "Désole, nous ne trouvons pas ce numéro de licence...",
+  "config.ffe.alreadyAssigned": "Désole, ce numéro est déjà assigné à {user}",
+
+  "config.lichess.unknown":
+    "Désole, ce pseudo ne fait pas encore parti de notre équipe...",
+  "config.lichess.alreadyAssigned":
+    "Désole, ce pseudo est déjà assigné à {user}",
+
+  "config.thanks": "Merci, c'est noté !",
+
   "errors.lichess":
     "Désole, je ne peux pas contacter le serveur lichess en ce moment !",
   "errors.mongo": "Désole, je ne peux pas contacter notre base en ce moment !",
+  "errors.ffe":
+    "Désole, je ne peux pas contacter le serveur FFE en ce moment !",
 
   "request.multiple":
     "J'ai trouvé plusieurs membres, merci d'être plus precis...",
