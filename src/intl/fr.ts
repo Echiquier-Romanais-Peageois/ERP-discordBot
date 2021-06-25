@@ -50,6 +50,9 @@ const fr = {
   "errors.lichess":
     "Désole, je ne peux pas contacter le serveur lichess en ce moment !",
   "errors.mongo": "Désole, je ne peux pas contacter notre base en ce moment !",
+
+  "request.multiple":
+    "J'ai trouvé plusieurs membres, merci d'être plus precis...",
 };
 
 export default fr;

@@ -1,7 +1,8 @@
 import Discord from "discord.js";
 
 import t from "bot/intl";
-import findUser from "bot/utils/find-user";
+import findUsers from "bot/utils/find-users";
+import displayMatches from "bot/utils/display-matches";
 
 const play = async (message: Discord.Message, args: string[]) => {
   if (args.length !== 1) {
@@ -9,8 +10,14 @@ const play = async (message: Discord.Message, args: string[]) => {
     return;
   }
 
-  const user = await findUser(message, args[0]);
-  if (!user?.pseudoLichess) {
+  const users = await findUsers(args[0]);
+
+  if (users.length > 1) {
+    displayMatches(message, t({ id: "request.multiple" }), users);
+    return;
+  }
+
+  if (users.length === 0 || !users[0]!.pseudoLichess) {
     message.reply(t({ id: "commands.play.unknown" }));
     return;
   }
@@ -18,7 +25,7 @@ const play = async (message: Discord.Message, args: string[]) => {
   message.reply(
     t(
       { id: "commands.play.visit" },
-      { link: `https://lichess.org/?user=${user?.pseudoLichess}#friend` }
+      { link: `https://lichess.org/?user=${users[0]!.pseudoLichess}#friend` }
     )
   );
 };

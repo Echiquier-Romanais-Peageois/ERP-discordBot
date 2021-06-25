@@ -50,21 +50,12 @@ const configFFE = async (
           lastNameFFE: member.lastName,
         });
       } else {
-        await User.updateOne(
-          {
-            idDiscord: forUser.id,
-          },
-          {
-            $set: {
-              pseudoDiscord: forUser.username,
-              licenceFFE: member.id,
-              firstNameFFE: member.firstName,
-              lastNameFFE: member.lastName,
-            },
-          }
-        );
+        dbUser.pseudoDiscord = forUser.username;
+        dbUser.licenceFFE = member.id;
+        dbUser.firstNameFFE = member.firstName;
+        dbUser.lastNameFFE = member.lastName;
+        await dbUser.save();
       }
-      console.log(1);
       message.reply("Merci, c'est noté !");
     } catch (e) {
       console.log(e);

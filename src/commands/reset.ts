@@ -15,7 +15,7 @@ const reset = async (
 };
 
 export default {
-  command: "reset",
+  command: "resetter-la-base",
   handler: reset,
   help: "commands.reset.help",
   isAdmin: true,

@@ -51,19 +51,11 @@ const configLichess = async (
           pseudoLichess: lichessUser.username,
         });
       } else {
-        await User.updateOne(
-          {
-            idDiscord: forUser.id,
-          },
-          {
-            $set: {
-              pseudoDiscord: forUser.username,
-              pseudoLichess: lichessUser.username,
-            },
-          }
-        );
+        dbUser.pseudoDiscord = forUser.username;
+        dbUser.pseudoLichess = lichessUser.username;
+        await dbUser.save();
       }
-      console.log(1);
+
       message.reply("Merci, c'est noté !");
     } catch (e) {
       console.log(e);
