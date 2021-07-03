@@ -13,7 +13,7 @@ const helpCommand = {
 export const generateHelpMessage = (isAdmin?: boolean) => {
   const availableCommands = [
     helpCommand,
-    ...commands.filter((command) => command && (isAdmin || command.isAdmin)),
+    ...commands.filter((command) => command && (isAdmin || !command.isAdmin)),
   ];
 
   return new Discord.MessageEmbed()
