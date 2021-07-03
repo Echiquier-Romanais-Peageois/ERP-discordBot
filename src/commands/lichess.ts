@@ -17,10 +17,12 @@ const lichess = async (message: Discord.Message) => {
     const team = await fetchTeam();
     const storedUsers = await attempt(User.find().exec());
 
-    const status = team.map((user) =>
-      user.online ? ":green_circle:" : ":red_circle:"
+    const usernames = team.map(
+      (user) =>
+        `${user.online ? ":green_circle:" : ":red_circle:"}\u00a0\u00a0${
+          user.username
+        }`
     );
-    const usernames = team.map((user) => user.username);
     const discordPseudos = team.map(
       (user) =>
         storedUsers?.find(
@@ -37,11 +39,6 @@ const lichess = async (message: Discord.Message) => {
           "https://images.prismic.io/lichess/5cfd2630-2a8f-4fa9-8f78-04c2d9f0e5fe_lichess-box-1024.png?auto=compress,format"
         )
         .addFields(
-          {
-            name: t({ id: "commands.lichess.active" }),
-            value: status,
-            inline: true,
-          },
           {
             name: t({ id: "commands.lichess.user" }),
             value: usernames,
